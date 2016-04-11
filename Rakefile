@@ -4,9 +4,9 @@ require 'nokogiri'
 require 'pathname'
 require 'rake/testtask'
 
-xsd_path = File.expand_path('../tmp/junos-system-12.1.xsd', Pathname.new(__FILE__).realpath)
-rule_path = File.expand_path('../tmp/rule.rb', Pathname.new(__FILE__).realpath)
-parser_path = File.expand_path('../lib/junoser/parser.rb', Pathname.new(__FILE__).realpath)
+xsd_path = File.expand_path('../tmp/junos-system-15.1.xsd', __FILE__)
+rule_path = File.expand_path('../tmp/rule.rb', __FILE__)
+parser_path = File.expand_path('../lib/junoser/parser.rb', __FILE__)
 
 def open_files(input, output, &block)
   i = open(input)
