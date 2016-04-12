@@ -46898,6 +46898,16 @@ rule(:service_set_object) do
           "log-prefix" arg,
           "services" arg
         )
+      ),
+      "jflow-rules" (
+        c(
+          "sampling"
+        )
+      ),
+      "sampling-service" (
+        c(
+          "service-interface" arg
+        )
       )
     )
   )
