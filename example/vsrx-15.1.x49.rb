@@ -237,8 +237,10 @@ rule(:configuration) do
           "rcsid" arg,
           "version" arg,
           "groups" (
-              s(
-                any
+              c(
+                arg (
+                  configuration
+                )
               )
           ),
           "apply-groups" arg,
