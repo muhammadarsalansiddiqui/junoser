@@ -6820,7 +6820,9 @@ end
 
 rule(:chassis_feb_type) do
     c(
-        "slot"
+        "slot" arg (
+          "sampling-instance" arg
+        )
     )
 end
 
@@ -6869,7 +6871,7 @@ rule(:chassis_fpc_type) do
         "ir-mode" arg,
         "fabric",
         "port-mirror-instance",
-        "sampling-instance",
+        "sampling-instance" arg,
         "inline-services",
         "application-services",
         "flexible-queuing-mode",
@@ -36546,7 +36548,66 @@ rule(:juniper_sampling_options) do
                 "mpls"
             )
         ),
-        "instance",
+        "instance" arg (
+          c(
+            "disable",
+            "input" (
+              c(
+                "rate" arg,
+                "run-length" arg,
+                "max-packets-per-second" arg,
+                "maximum-packet-length" arg
+              )
+            ),
+            "family" ("mpls" | "inet6" | "inet" ) (
+              c(
+                "disable",
+                "output" (
+                  c(
+                    "aggregate-export-interval" arg,
+                    "flow-active-timeout" arg,
+                    "flow-inactive-timeout" arg,
+                    "extension-service" arg,
+                    "flow-server" arg (
+                      c(
+                        "aggregation" (
+                          c(
+                            "autonomous-system",
+                            "destination-prefix",
+                            "protocol-port",
+                            "source-destination-prefix" (
+                              "caida-compliant"
+                            ),
+                            "source-prefix"
+                          )
+                        ),
+                        "autonomous-system-type" ("origin" | "peer"),
+                        ("local-dump" | "no-local-dump"),
+                        "port" arg,
+                        "source-address" ipaddr,
+                        "version" arg,
+                        "version9" (
+                          "template" arg
+                        )
+                      )
+                    ),
+                    "interface" arg (
+                      c(
+                        "engine-id" arg,
+                        "engine-type" arg,
+                        "source-address" ipaddr
+                      )
+                    ),
+                    "inline-jflow" (
+                      "source-address" ipaddr,
+                      "flow-export-rate" arg
+                    )
+                  )
+                )
+              )
+            )
+          )
+        ),
         "jflow-service" (
             c(
                 "traceoptions" (
