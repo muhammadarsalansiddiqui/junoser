@@ -29680,7 +29680,8 @@ rule(:juniper_protocols_bgp) do
                     )
                 )
             )
-        )
+        ),
+        "drop-path-attributes" arg
     )
 end
 
