@@ -6430,7 +6430,12 @@ rule(:chassis_type) do
         "host-outbound",
         "synchronization",
         "lcd",
-        "forwarding-options",
+        "forwarding-options" (
+          c(
+            "num-65-127-prefix" arg,
+            "lpm-profile prefix-65-127-disable"
+          )
+        ),
         "lcd-menu",
         "fru-poweron-sequence" arg,
         "auto-image-upgrade",
