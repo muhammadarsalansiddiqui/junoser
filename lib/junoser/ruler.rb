@@ -39,7 +39,7 @@ module Junoser
     def process_reserved_element(str)
       str.gsub! /"\$\S+"/, 'arg'
 
-      %w[as-number confederation-as metric-value limit-threshold filename filter-name class-name classifier-name link-subscription per-traffic-class-bandwidth template-name].each do |key|
+      %w[as-number confederation-as metric-value limit-threshold filename filter-name class-name link-subscription per-traffic-class-bandwidth template-name].each do |key|
         str.gsub! %["#{key}" arg], 'arg'
       end
 
@@ -64,7 +64,7 @@ module Junoser
       str = omit_label(str, 'client-address-list', 'client_address_object')
       str = omit_label(str, 'prefix-list-item', 'prefix_list_items')
       str = omit_label(str, 'instance', 'juniper_routing_instance')
-      str = omit_label(str, 'vlan', 'vlan_type')
+      str = omit_label(str, 'vlan', 'vlan_types')
 
       str.gsub!(/"icmp"(.*)"icmp6"/) { %["icmpv6"#$1"icmp"] }
       str.gsub!(/"http"(.*)"https"/) { %["https"#$1"http"] }
@@ -131,7 +131,6 @@ module Junoser
                 '        "full-name" (quote | arg),'])
       end
 
-      str.gsub!(/(rule\(:juniper_policy_options\) do\s*)c\(/) { "#{$1}c(" }
       str.gsub!(/(rule\(:control_route_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
       str.gsub!(/(rule\(:control_source_address_filter_type\) do\s*)s\(\s*arg,/) { "#{$1}b(" }
       str.gsub!(/^(rule\(:trace_file_type\) do\s*)c\(\s*arg,/) { "#{$1}sca(" }
