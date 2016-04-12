@@ -45922,8 +45922,12 @@ rule(:version9_template) do
             )
         ),
         c(
-          "mpls-ipv4-template",
-          "mpls-template",
+          "mpls-ipv4-template" (
+            "label-position" any
+          ),
+          "mpls-template" (
+            "label-position" any
+          ),
           "ipv6-template" (
               c(
                   "nexthop-options"
@@ -45932,7 +45936,11 @@ rule(:version9_template) do
           "peer-as-billing-template",
           "ipv4-template" (
               c(
-                  "nexthop-options"
+                  "nexthop-options" (
+                    "mpls" (
+                      "label-position" any
+                    )
+                  )
               )
           )
         )
