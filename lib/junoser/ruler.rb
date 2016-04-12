@@ -118,6 +118,9 @@ module Junoser
                 '  arg',
                 ')'], $1)
       end
+      str.gsub!(/^(\s*)"accept-reject" \(\s*(\("accept" \| "reject"\))\s*\)$/) do
+        format($2, $1)
+      end
 
       str.gsub!(/^rule\(:regular_expression\) do\s*((?!end).)*\s*end/) do
         format(['rule(:regular_expression) do',
