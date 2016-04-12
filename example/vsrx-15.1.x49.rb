@@ -28460,6 +28460,9 @@ rule(:juniper_protocols) do
               )
             )
           )
+        ),
+        "layer2-control" (
+          juniper_protocols_layer2_control
         )
     )
 end
@@ -46895,6 +46898,54 @@ rule(:service_set_object) do
           "log-prefix" arg,
           "services" arg
         )
+      )
+    )
+  )
+end
+
+rule(:juniper_protocols_layer2_control) do
+  c(
+    "bpdu-block" (
+      c(
+        "disable-timeout" arg,
+        "interface" any
+      )
+    ),
+    "mac-rewrite" (
+      "interface" arg (
+        c(
+          "enable-all-ifl",
+          "protocol" (
+            c(
+              "cdp",
+              "stp",
+              "vtp",
+              "pvstp"
+            )
+          )
+        )
+      )
+    ),
+    "nonstop-bridging",
+    "traceoptions" (
+      c(
+        "file" (
+          c(
+            "filename" arg,
+            "size" arg,
+            "files" arg,
+            "world-readable",
+            "no-world-readable",
+            "match" (
+              regular_expression
+            )
+          )
+        ).as(:oneline),
+        "flag" ("all" | "kernel" | "change-events" | "kernel-detail" | "config-states" | "resource-usage" | "gres-events" | "select-events") (
+          c(
+            "disable"
+          )
+        ).as(:oneline)
       )
     )
   )
