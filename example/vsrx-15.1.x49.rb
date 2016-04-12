@@ -241,6 +241,7 @@ rule(:configuration) do
                 any
               )
           ),
+          "apply-groups" arg,
           "dynamic-profiles" (
             juniper_dynamic_profile_object
           ),
