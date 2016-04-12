@@ -28406,6 +28406,51 @@ rule(:juniper_protocols) do
               )
             )
           )
+        ),
+        "vstp" (
+          c(
+            "bpdu-block-on-edge",
+            "disable",
+            "force-version" arg,
+            "vlan" ("all" | arg) (
+              c(
+                "bridge-priority" arg,
+                "forward-delay" arg,
+                "hello-time" arg,
+                "interface" ("all" | arg) (
+                  c(
+                    "bpdu-timeout-action" (
+                      c(
+                        "block",
+                        "log"
+                      )
+                    ),
+                    "cost" arg,
+                    "disable",
+                    "edge",
+                    "mode" arg,
+                    "no-root-port",
+                    "priority" arg,
+                  )
+                ),
+                "max-age" arg,
+                "traceoptions" (
+                  c(
+                    "file" (
+                      c(
+                        "filename" arg,
+                        "size" arg,
+                        "no-stamp",
+                        "world-readable",
+                        "no-world-readable",
+                      )
+                    ).as(:oneline),
+                    "flag" arg
+                  )
+                )
+              )
+            )
+          )
         )
     )
 end
