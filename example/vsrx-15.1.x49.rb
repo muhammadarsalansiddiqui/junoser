@@ -9050,7 +9050,20 @@ rule(:ethernet_switching_type) do
         ),
         "storm-control" (
             c(
-                "profile-name" arg
+                "default",
+                "action-shutdown",
+                "interface" ("all" | arg) (
+                    c(
+                        "bandwidth" arg,
+                        "level" arg,
+                        "multicast",
+                        "no-broadcast",
+                        "no-multicast",
+                        "no-registered-multicast",
+                        "no-unknown-unicast",
+                        "no-unregistered-multicast"
+                    )
+                )
             )
         ),
         "recovery-timeout" (
