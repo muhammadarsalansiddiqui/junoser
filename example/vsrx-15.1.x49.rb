@@ -28387,6 +28387,25 @@ rule(:juniper_protocols) do
         ),
         "dlsw" (
           juniper_protocols_dlsw
+        ),
+        "dcbx" (
+          c(
+            "disable",
+            "interface" ("all" | arg) (
+              c(
+                "application-map" arg,
+                "applications" (
+                  "fcoe" (
+                    "no-auto-negotiation"
+                  )
+                ),
+                "disable",
+                "priority-flow-control" (
+                  "no-auto-negotiation"
+                )
+              )
+            )
+          )
         )
     )
 end
