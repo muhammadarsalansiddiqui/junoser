@@ -5549,7 +5549,55 @@ rule(:configuration) do
               )
           ),
           "poe",
-          "wlan"
+          "wlan",
+          "virtual-chassis" (
+            c(
+              "auto-sw-update" (
+                arg (
+                  "package-name" arg
+                )
+              ),
+              "fast-failover" (
+                c(
+                  "ge",
+                  "vcp" (
+                    "disable"
+                  ),
+                  "xe"
+                )
+              ),
+              "id" arg,
+              "mac-persistence-timer" (
+                "minutes"
+              ),
+              "member" arg (
+                c(
+                  "mastership-priority" arg,
+                  "no-management-vlan",
+                  "role" ("line-card" | "routing-engine"),
+                  "serial-number" arg
+                )
+              ),
+              "no-split-detection",
+              "preprovisioned",
+              "traceoptions" (
+                c(
+                  "file" (
+                    c(
+                      "files" arg,
+                      "no-stamp",
+                      "replace",
+                      "size" arg,
+                      "world-readable",
+                      "no-world-readable",
+                      arg
+                    )
+                  ),
+                  "flag" ("detail" | "disable" | "receive" | "send")
+                )
+              )
+            )
+          )
       )
 end
 
