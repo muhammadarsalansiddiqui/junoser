@@ -4,14 +4,16 @@ module Junoser
       @io_or_string = io_or_string
     end
 
-    def read
-      content = if @io_or_string.respond_to?(:read)
-                  @io_or_string.read
-                else
-                  @io_or_string.to_s
-                end
+    def read(compact=true)
+      @content ||= if @io_or_string.respond_to?(:read)
+                     @io_or_string.read
+                   else
+                     @io_or_string.to_s
+                   end
 
-      content = remove_blank_and_comment_line(content)
+      return @content unless compact
+
+      content = remove_blank_and_comment_line(@content.dup)
       content = unify_carriage_return(content)
     end
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'json'
 require 'optparse'
 require 'pathname'
 
@@ -17,6 +18,10 @@ opts = OptionParser.new do |opts|
 
   opts.on '-c', '--check', 'Verify syntax' do
     command = :check
+  end
+
+  opts.on '-C', '--check-lines', 'Verify syntax and display invalid line numbers in JSON format' do
+    command = :check_lines
   end
 
   opts.on '-d', '--display-set', 'Translate to "display set" form' do
@@ -42,6 +47,8 @@ opts.parse!
 case command
 when :check
   abort unless Junoser::Cli.commit_check($<)
+when :check_lines
+  puts JSON.dump(Junoser::Cli.commit_check_lines($<))
 when :display_set
   puts Junoser::Cli.display_set($<)
 when :struct

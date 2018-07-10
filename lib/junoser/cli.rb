@@ -17,6 +17,17 @@ module Junoser
         end
       end
 
+      def commit_check_lines(io_or_string)
+        input = Junoser::Input.new(io_or_string)
+        config = input.read
+
+        unless Junoser::Display.display_set?(config)
+          abort 'This option supports "display-set" format only'
+        end
+
+        commit_check_lines_display_set(config, input.read(false))
+      end
+
       def display_set(io_or_string)
         Junoser::Display::Set.new(io_or_string).transform
       end
@@ -35,6 +46,11 @@ module Junoser
       def commit_check_display_set(config)
         parser = Junoser::Parser.new
         parser.parse_lines(config)
+      end
+
+      def commit_check_lines_display_set(config, original_config)
+        parser = Junoser::Parser.new
+        parser.parse_and_report_lines(config, original_config)
       end
     end
   end
